@@ -24,20 +24,37 @@ void printArray(int[,] array)                                    ///////////вы
     }
 }
 int[,] changeRowsColumns(int[,] array)
+
 {
     for (int i = 0; i < array.GetLength(0); i++)
     {
-        for (int j = 0; j < array.GetLength(1); j++)
+        for (int j = i; j < array.GetLength(1); j++)
+        {
+            int temp = array[i, j];
             array[i, j] = array[j, i];
+            array[j, i] = temp;
+        }
     }
     return array;
 }
+bool check(int[,] array)
+{
+    if (array.GetLength(0) == array.GetLength(1))
+        return true;
+    return false;
+}
+
 ////////////////////////////////////
-int rows = new Random().Next(3, 3);
-int columns = new Random().Next(3, 3);
+int rows = new Random().Next(1, 6);
+int columns = new Random().Next(1, 6);
 int[,] array = getArray(rows, columns);
 Console.WriteLine();
 printArray(array);
 Console.WriteLine();
-int[,] changeArray = changeRowsColumns(array);
-printArray(changeArray);
+if (check(array))
+{
+    int[,] changeArray = changeRowsColumns(array);
+    printArray(changeArray);
+}
+else Console.Write($"невозможно транспонировать массив"); 
+    
